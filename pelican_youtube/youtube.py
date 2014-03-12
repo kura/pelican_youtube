@@ -45,12 +45,16 @@ class YouTube(Directive):
         """Conversion function for the "align" option."""
         return directives.choice(argument, ('left', 'center', 'right'))
 
+    def yesno(argument):
+        return directives.choice(argument, ('yes', 'no'))
+
     required_arguments = 1
     optional_arguments = 2
     option_spec = {
         'width': directives.positive_int,
         'height': directives.positive_int,
-        'align': align
+        'align': align,
+        'nocookie': yesno,
     }
 
     final_argument_whitespace = False
@@ -61,6 +65,7 @@ class YouTube(Directive):
         width = 420
         height = 315
         align = 'left'
+        domain = 'www.youtube.com'
 
         if 'width' in self.options:
             width = self.options['width']
@@ -71,7 +76,10 @@ class YouTube(Directive):
         if 'align' in self.options:
             align = self.options['align']
 
-        url = 'https://www.youtube.com/embed/{}'.format(videoID)
+        if 'nocookie' in self.options and self.options['nocookie'] == 'yes':
+            domain = 'www.youtube-nocookie.com'
+
+        url = 'https://{}/embed/{}'.format(domain, videoID)
         div_block = '<div class="youtube" align="{}">'.format(align)
         embed_block = '<iframe width="{}" height="{}" src="{}" '\
                       'frameborder="0"></iframe>'.format(width, height, url)
