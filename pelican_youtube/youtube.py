@@ -32,13 +32,11 @@ class YouTube(Directive):
     https://gist.github.com/1422773
 
     VIDEO_ID is required, with / height are optional integer,
-    and align could be left / center / right.
 
     Usage:
     .. youtube:: VIDEO_ID
         :width: 640
         :height: 480
-        :align: center
     """
 
     def align(argument):
@@ -53,7 +51,7 @@ class YouTube(Directive):
     option_spec = {
         'width': directives.positive_int,
         'height': directives.positive_int,
-        'align': align,
+        'align': align, # back compatibility
         'nocookie': yesno,
     }
 
@@ -64,7 +62,6 @@ class YouTube(Directive):
         videoID = self.arguments[0].strip()
         width = 420
         height = 315
-        align = 'left'
         domain = 'www.youtube.com'
 
         if 'width' in self.options:
@@ -73,16 +70,14 @@ class YouTube(Directive):
         if 'height' in self.options:
             height = self.options['height']
 
-        if 'align' in self.options:
-            align = self.options['align']
-
         if 'nocookie' in self.options and self.options['nocookie'] == 'yes':
             domain = 'www.youtube-nocookie.com'
 
+
         url = 'https://{}/embed/{}'.format(domain, videoID)
-        div_block = '<div class="youtube" align="{}">'.format(align)
-        embed_block = '<iframe width="{}" height="{}" src="{}" '\
-                      'frameborder="0"></iframe>'.format(width, height, url)
+        div_block = '<div class="youtube">'
+        embed_block = '<iframe width="{}" height="{}" src="{}">'\
+                      '</iframe>'.format(width, height, url)
 
         return [
             nodes.raw('', div_block, format='html'),
