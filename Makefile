@@ -6,6 +6,6 @@ uninstall:
 	pip uninstall pelican_youtube
 
 pypi:
-	python setup.py sdist upload
-	python setup.py bdist_egg upload
-	python setup.py bdist_wheel upload
+	pip install wheel twine
+	python setup.py sdist bdist_wheel
+	twine upload dist/*
