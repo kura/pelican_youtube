@@ -31,26 +31,25 @@ class YouTube(Directive):
     Based on the YouTube directive by Brian Hsu:
     https://gist.github.com/1422773
 
-    VIDEO_ID is required, with / height are optional integer,
-    and align could be left / center / right.
+    VIDEO_ID is required, other arguments are optional
 
     Usage:
     .. youtube:: VIDEO_ID
-        :width: 640
-        :height: 480
-        :align: center
     """
 
-    def align(argument):
-        """Conversion function for the "align" option."""
-        return directives.choice(argument, ('left', 'center', 'right'))
+    def boolean(argument):
+        """Conversion function for yes/no True/False."""
+        value = directives.choice(argument, ('yes', 'True', 'no', 'False'))
+        return value in ('yes', 'True')
 
     required_arguments = 1
-    optional_arguments = 2
+    optional_arguments = 5
     option_spec = {
+        'class': directives.unchanged,
         'width': directives.positive_int,
         'height': directives.positive_int,
-        'align': align
+        'allowfullscreen': boolean,
+        'seamless': boolean,
     }
 
     final_argument_whitespace = False
@@ -58,28 +57,43 @@ class YouTube(Directive):
 
     def run(self):
         videoID = self.arguments[0].strip()
-        width = 420
-        height = 315
-        align = 'left'
-
-        if 'width' in self.options:
-            width = self.options['width']
-
-        if 'height' in self.options:
-            height = self.options['height']
-
-        if 'align' in self.options:
-            align = self.options['align']
-
         url = 'https://www.youtube.com/embed/{}'.format(videoID)
-        div_block = '<div class="youtube" align="{}">'.format(align)
-        embed_block = '<iframe width="{}" height="{}" src="{}" '\
-                      'frameborder="0"></iframe>'.format(width, height, url)
+
+        width = self.options['width'] if 'width' in self.options else None
+        height = self.options['height'] if 'height' in self.options else None
+        fullscreen = self.options['allowfullscreen'] \
+            if 'allowfullscreen' in self.options else True
+        seamless = self.options['seamless'] \
+            if 'seamless' in self.options else True
+
+        css_classes = 'youtube'
+        if 'class' in self.options:
+            css_classes += ' {}'.format(self.options['class'])
+        elif height is None:
+            # use responsive design with 16:9 aspect ratio by default
+            css_classes += ' {}'.format('youtube-16x9')
+        # no additional classes if dimensions (height/width) are specified
+
+        iframe_arguments = [
+            (width, 'width="{}"'),
+            (height, 'height="{}"'),
+            (fullscreen, 'allowfullscreen'),
+            (seamless, 'seamless frameBorder="0"'),
+        ]
+
+        div_block = '<div class="{}">'.format(css_classes)
+        embed_block = '<iframe src="{}" '.format(url)
+
+        for value, format in iframe_arguments:
+            embed_block += (format + ' ').format(value) if value else ''
+
+        embed_block = embed_block[:-1] + '></iframe>'
 
         return [
             nodes.raw('', div_block, format='html'),
             nodes.raw('', embed_block, format='html'),
-            nodes.raw('', '</div>', format='html')]
+            nodes.raw('', '</div>', format='html'),
+        ]
 
 
 def register():
