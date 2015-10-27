@@ -19,9 +19,9 @@
 
 # -*- coding: utf-8 -*-
 __title__ = 'pelican-youtube'
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 __author__ = 'Kura'
-__credits__ = ["Kura", ]
+__credits__ = ["Kura", "Peter Bittner"]
 __maintainer__ = "Kura"
 __email__ = "kura@kura.io"
 __status__ = "Stable"
