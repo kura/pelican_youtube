@@ -54,15 +54,19 @@ Which will result in:
 Additional arguments
 --------------------
 
-====================== ================= ======================================
-Attribute              default
-====================== ================= ======================================
-`allowfullscreen`      ``yes``           allow video to be displayed full-screen
-`seamless`             ``yes``           no borders around iframe
-`class`                ``youtube-16x9``, additional CSS classes, usually for responsive behavior
-                       empty°            (° when `width` or `height` are specified)
-`width`, `height`      empty             video dimensions when responsive design is not desired
-====================== ================= ======================================
++-------------------+------------------+---------------------------------------------------------+
+| Attribute         | default          |                                                         |
++===================+==================+=========================================================+
+| `allowfullscreen` | ``yes``          | allow video to be displayed full-screen                 |
++-------------------+------------------+---------------------------------------------------------+
+| `seamless`        | ``yes``          | no borders around iframe                                |
++-------------------+------------------+---------------------------------------------------------+
+| `class`           | ``youtube-16x9`` | additional CSS classes, usually for responsive behavior |
++-------------------+------------------+---------------------------------------------------------+
+|                   | empty°           | (° when `width` or `height` are specified)              |
++-------------------+------------------+---------------------------------------------------------+
+| `width`, `height` | empty            | video dimensions when responsive design is not desired  |
++-------------------+------------------+---------------------------------------------------------+
 
 Example 1: (responsive design)
 
