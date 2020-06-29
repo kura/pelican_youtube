@@ -43,13 +43,14 @@ class YouTube(Directive):
         return value in ('yes', 'True')
 
     required_arguments = 1
-    optional_arguments = 5
+    optional_arguments = 6
     option_spec = {
         'class': directives.unchanged,
         'width': directives.positive_int,
         'height': directives.positive_int,
         'allowfullscreen': boolean,
         'seamless': boolean,
+        'nocookie': boolean,
     }
 
     final_argument_whitespace = False
@@ -57,7 +58,11 @@ class YouTube(Directive):
 
     def run(self):
         videoID = self.arguments[0].strip()
-        url = 'https://www.youtube.com/embed/{}'.format(videoID)
+        # Choose whether to use the YouTube nocookie domain for reduced tracking.
+        nocookie = self.options['nocookie'] \
+            if 'nocookie' in self.options else False
+        youtube_domain = 'youtube-nocookie' if nocookie else 'youtube'
+        url = 'https://www.{}.com/embed/{}'.format(youtube_domain, videoID)
 
         width = self.options['width'] if 'width' in self.options else None
         height = self.options['height'] if 'height' in self.options else None
