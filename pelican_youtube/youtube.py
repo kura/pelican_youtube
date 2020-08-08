@@ -59,9 +59,8 @@ class YouTube(Directive):
     def run(self):
         videoID = self.arguments[0].strip()
         # Choose whether to use the YouTube nocookie domain for reduced tracking.
-        nocookie = self.options['nocookie'] \
-            if 'nocookie' in self.options else False
-        youtube_domain = 'youtube-nocookie' if nocookie else 'youtube'
+        youtube_domain = 'youtube-nocookie' \
+            if 'nocookie' in self.options else 'youtube'
         url = 'https://www.{}.com/embed/{}'.format(youtube_domain, videoID)
 
         width = self.options['width'] if 'width' in self.options else None
