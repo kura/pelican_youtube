@@ -39,18 +39,18 @@ class YouTube(Directive):
 
     def boolean(argument):
         """Conversion function for yes/no True/False."""
-        value = directives.choice(argument, ('yes', 'True', 'no', 'False'))
-        return value in ('yes', 'True')
+        value = directives.choice(argument, ("yes", "True", "no", "False"))
+        return value in ("yes", "True")
 
     required_arguments = 1
     optional_arguments = 6
     option_spec = {
-        'class': directives.unchanged,
-        'width': directives.positive_int,
-        'height': directives.positive_int,
-        'allowfullscreen': boolean,
-        'seamless': boolean,
-        'nocookie': boolean,
+        "class": directives.unchanged,
+        "width": directives.positive_int,
+        "height": directives.positive_int,
+        "allowfullscreen": boolean,
+        "seamless": boolean,
+        "nocookie": boolean,
     }
 
     final_argument_whitespace = False
@@ -58,30 +58,29 @@ class YouTube(Directive):
 
     def run(self):
         videoID = self.arguments[0].strip()
-        # Choose whether to use the YouTube nocookie domain for reduced tracking.
-        youtube_domain = 'youtube-nocookie' \
-            if 'nocookie' in self.options else 'youtube'
-        url = 'https://www.{}.com/embed/{}'.format(youtube_domain, videoID)
+        # Choose whether to use the YouTube nocookie domain for reduced
+        # tracking.
+        youtube_domain = (
+            "youtube-nocookie" if "nocookie" in self.options else "youtube"
+        )
+        url = "https://www.{}.com/embed/{}".format(youtube_domain, videoID)
 
-        width = self.options['width'] if 'width' in self.options else None
-        height = self.options['height'] if 'height' in self.options else None
-        fullscreen = self.options['allowfullscreen'] \
-            if 'allowfullscreen' in self.options else True
-        seamless = self.options['seamless'] \
-            if 'seamless' in self.options else True
-
-        css_classes = 'youtube'
-        if 'class' in self.options:
-            css_classes += ' {}'.format(self.options['class'])
+        width = self.options.get("width", None)
+        height = self.options.get("height", None)
+        fullscreen = self.options.get("allowfullscreen", True)
+        seamless = self.options.get("seamless", True)
+        css_classes = "youtube"
+        if "class" in self.options:
+            css_classes += " {}".format(self.options["class"])
         elif height is None:
             # use responsive design with 16:9 aspect ratio by default
-            css_classes += ' {}'.format('youtube-16x9')
+            css_classes += " {}".format("youtube-16x9")
         # no additional classes if dimensions (height/width) are specified
 
         iframe_arguments = [
             (width, 'width="{}"'),
             (height, 'height="{}"'),
-            (fullscreen, 'allowfullscreen'),
+            (fullscreen, "allowfullscreen"),
             (seamless, 'seamless frameBorder="0"'),
         ]
 
@@ -89,16 +88,16 @@ class YouTube(Directive):
         embed_block = '<iframe src="{}" '.format(url)
 
         for value, format in iframe_arguments:
-            embed_block += (format + ' ').format(value) if value else ''
+            embed_block += (format + " ").format(value) if value else ""
 
-        embed_block = embed_block[:-1] + '></iframe>'
+        embed_block = embed_block[:-1] + "></iframe>"
 
         return [
-            nodes.raw('', div_block, format='html'),
-            nodes.raw('', embed_block, format='html'),
-            nodes.raw('', '</div>', format='html'),
+            nodes.raw("", div_block, format="html"),
+            nodes.raw("", embed_block, format="html"),
+            nodes.raw("", "</div>", format="html"),
         ]
 
 
 def register():
-    directives.register_directive('youtube', YouTube)
+    directives.register_directive("youtube", YouTube)
