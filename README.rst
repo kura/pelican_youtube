@@ -8,6 +8,8 @@ and articles.
 Installation
 ============
 
+Pip
+---
 To install pelican-youtube, simply install it from PyPI:
 
 .. code-block:: bash
@@ -24,6 +26,27 @@ Then enable it in your pelicanconf.py
         # ...
     ]
 
+Local plugins directory
+-----------------------
+
+.. code-block:: bash
+
+    $ mkdir plugins
+    $ git clone git@github.com:kura/pelican_youtube.git plugins/pelican_youtube
+
+Then enable it in your pelicanconf.py
+
+.. code-block:: python
+
+    PLUGIN_PATHS = ["plugins/"]
+    PLUGINS = [
+        # ...
+        'pelican_youtube',
+        # ...
+    ]
+
+
+ 
 Usage
 =====
 
