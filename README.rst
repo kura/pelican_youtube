@@ -1,5 +1,5 @@
 ===============
-Pelican YouTube
+Pelican YouTube 
 ===============
 
 Pelican YouTube is a plugin to enabled you to embed YouTube videos in your pages
