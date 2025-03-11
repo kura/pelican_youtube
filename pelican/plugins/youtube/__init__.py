@@ -17,15 +17,4 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# -*- coding: utf-8 -*-
-__title__ = "pelican-youtube"
-__version__ = "0.2.1"
-__author__ = "Kura"
-__credits__ = ["Kura", "Peter Bittner"]
-__maintainer__ = "Kura"
-__email__ = "kura@kura.gg"
-__status__ = "Stable"
-__license__ = "MIT"
-__copyright__ = "Copyright 2013"
-
-from pelican_youtube.youtube import register
+from .youtube import register

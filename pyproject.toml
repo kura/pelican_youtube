@@ -1,0 +1,45 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools>=64"]
+
+[project]
+name = "pelican-youtube"
+version = "0.3.0"
+description = "Easily embed YouTube videos in your posts"
+readme = "README.rst"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Kura", email = "kura@kura.gg"},
+    {name = "Peter Bittner", email = "django@gittner.it"},
+]
+maintainers = [
+    {name = "Kura", email = "kura@kura.gg"},
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing",
+]
+requires-python = ">=3.8,<4.0"
+dependencies = [
+    "pelican>=4.5",
+]
+
+[project.urls]
+Homepage = "https://github.com/kura/pelican_youtube"
+
+[tool.setuptools]
+packages = ["pelican.plugins.youtube"]

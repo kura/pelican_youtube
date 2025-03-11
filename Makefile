@@ -1,11 +1,19 @@
-.PHONY: install uninstall pypi
-install:
-	python setup.py install
+.PHONY: install uninstall build pypi clean
 
-uninstall:
-	pip uninstall pelican_youtube
+uv:
+	@if ! which uv >/dev/null; then pip install uv; fi
 
-pypi:
-	pip install wheel twine
-	python setup.py sdist bdist_wheel
-	twine upload dist/*
+install: uv
+	uv pip install .
+
+uninstall: uv
+	uv pip uninstall -y pelican-youtube
+
+build: uv
+	uv build
+
+pypi: build
+	uv publish
+
+clean: uv
+	uvx pyclean . --debris
