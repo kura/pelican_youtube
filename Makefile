@@ -16,4 +16,4 @@ pypi: build
 	uv publish
 
 clean: uv
-	uvx pyclean . --debris
+	uvx pyclean . --debris --erase .pdm-build/**/* .pdm-build/.gitignore .pdm-build --yes
