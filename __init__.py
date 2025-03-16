@@ -1,1 +1,1 @@
-pelican_youtube/__init__.py
+pelican/plugins/youtube/__init__.py

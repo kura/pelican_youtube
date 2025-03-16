@@ -2,29 +2,28 @@
 Pelican YouTube
 ===============
 
-Pelican YouTube is a plugin to enabled you to embed YouTube videos in your pages
-and articles.
+Pelican YouTube is a Pelican plugin, which allows you to embed YouTube videos
+in your pages and articles.
 
 Installation
 ============
 
 Pip
 ---
-To install pelican-youtube, simply install it from PyPI:
+
+You can install `pelican-youtube`_ from PyPI as usual, e.g.
 
 .. code-block:: bash
 
-    $ pip install pelican-youtube
+    pip install pelican-youtube
 
-Then enable it in your pelicanconf.py
+Pelican 4.5+ will detect the newly installed plugin automatically.
 
-.. code-block:: python
+See the `Pelican documentation`_ on plugins if you use an older version or
+you want to manually integrate the plugin in your `pelicanconf.py`.
 
-    PLUGINS = [
-        # ...
-        'pelican_youtube',
-        # ...
-    ]
+.. _pelican-youtube: https://pypi.org/project/pelican-youtube
+.. _Pelican documentation: https://docs.getpelican.com/en/latest/plugins.html
 
 Local plugins directory
 -----------------------
@@ -32,21 +31,20 @@ Local plugins directory
 .. code-block:: bash
 
     $ mkdir plugins
-    $ git clone git@github.com:kura/pelican_youtube.git plugins/pelican_youtube
+    $ cd plugins
+    $ git clone https://github.com/kura/pelican_youtube.git
 
-Then enable it in your pelicanconf.py
+Then enable it in your `pelicanconf.py`, e.g.
 
 .. code-block:: python
 
     PLUGIN_PATHS = ["plugins/"]
     PLUGINS = [
         # ...
-        'pelican_youtube',
+        "pelican_youtube",
         # ...
     ]
 
-
- 
 Usage
 =====
 

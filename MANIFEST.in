@@ -1,1 +1,2 @@
-include README.rst LICENSE
+exclude Makefile
+include README.rst LICENSE pelican/plugins/youtube/youtube.css
