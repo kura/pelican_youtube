@@ -70,7 +70,7 @@ Which will result in:
     Alternatively, you can specify `width` and `height` as detailed below.
 
 
-.. _youtube.css: https://github.com/kura/pelican_youtube/blob/master/youtube.css
+.. _youtube.css: https://github.com/kura/pelican_youtube/blob/main/pelican/plugins/youtube/youtube.css
 
 Additional arguments
 --------------------
